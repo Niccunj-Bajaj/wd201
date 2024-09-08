@@ -28,7 +28,7 @@ const todoList = () => {
   };
 
   const toDisplayableList = (list) => {
-    list
+    return list
       .map(
         (task) =>
           `${task.completed ? "[x]" : "[ ]"} ${task.title}${
