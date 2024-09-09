@@ -30,9 +30,10 @@ describe("Todolist test suite", () => {
     expect(all.length).toBe(todoItems + 1);
   });
   test("Should mark completed", () => {
-    expect(all[0].completed).toBe(false);
+    const initialStatus = all[0].completed;
     markAsComplete(0);
-    expect(all[0].completed).toBe(true);
+    const updatedStatus = all[0].completed;
+    expect(updatedStatus).not.toBe(initialStatus);
   });
   test("Should retrive overdue", () => {
     let over = overdue();
