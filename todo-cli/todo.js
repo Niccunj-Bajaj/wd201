@@ -32,7 +32,9 @@ const todoList = () => {
       .map(
         (task) =>
           `${task.completed ? "[x]" : "[ ]"} ${task.title}${
-            task.dueDate === today ? "" : " " + task.dueDate
+            task.dueDate === new Date().toISOString().split("T")[0]
+              ? ""
+              : " " + task.dueDate
           }`,
       )
       .join("\n");
