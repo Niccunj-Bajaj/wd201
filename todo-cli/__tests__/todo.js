@@ -25,7 +25,6 @@ describe("Todolist Test Suite", () => {
   });
 });
 
-// /* eslint-disable no-undef */
 // const todoList = require("../todo");
 
 // describe("Todo List Test Suite", () => {
