@@ -56,7 +56,7 @@ describe("Todolist Test Suite", () => {
     expect(todo.completed).toBe(true);
   });
 
-  test("Should return completed past-due todo", async () => {
+  test(" For a completed past-due item, Todo.displayableString should return a string of the format ID. [x] TITLE DUE_DATE", async () => {
     const item = await db.Todo.overdue();
     const i = item[0];
     expect(i.completed).toBe(true);
@@ -64,7 +64,7 @@ describe("Todolist Test Suite", () => {
     expect(display).toBe(`${i.id}. [x] ${i.title}  ${i.dueDate}`);
   });
 
-  test("Should return incomplete post-due todo", async () => {
+  test(" For an incomplete todo in the future, Todo.displayableString should return a string of the format ID. [ ] TITLE DUE_DATE", async () => {
     const item = await db.Todo.dueLater();
     const i = item[0];
     expect(i.completed).toBe(false);
@@ -72,22 +72,22 @@ describe("Todolist Test Suite", () => {
     expect(display).toBe(`${i.id}. [ ] ${i.title}  ${i.dueDate}`);
   });
 
-  test("Should return incomplete present-due todo", async () => {
+  test("For an incomplete todo due today, Todo.displayableString should return a string of the format ID. [ ] TITLE (date should not be shown)", async () => {
     const item = await db.Todo.dueToday();
     const i = item[0];
     expect(i.completed).toBe(false);
     const display = i.displayableString();
-    expect(display).toBe(`${i.id}. [ ] ${i.title}  ${i.dueDate}`);
+    expect(display).toBe(`${i.id}. [ ] ${i.title}`);
   });
 
-  test("Should return complete present-due todo", async () => {
+  test("For a complete todo due today, Todo.displayableString should return a string of the format ID. [x] TITLE (date should not be shown)", async () => {
     const item = await db.Todo.dueToday();
     const i = item[0];
     expect(i.completed).toBe(false);
     await db.Todo.markAsComplete(i.id);
     await i.reload();
     const display = i.displayableString();
-    expect(display).toBe(`${i.id}. [x] ${i.title}  ${i.dueDate}`);
+    expect(display).toBe(`${i.id}. [x] ${i.title}`);
   });
 });
 

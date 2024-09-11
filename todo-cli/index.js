@@ -62,7 +62,7 @@ const updateTask = async (id) => {
         where: {
           id: id,
         },
-      }
+      },
     );
   } catch (error) {
     console.error(error);

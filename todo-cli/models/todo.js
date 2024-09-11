@@ -63,7 +63,7 @@ module.exports = (sequelize, DataTypes) => {
             where: {
               id: id,
             },
-          }
+          },
         );
       } catch (error) {
         console.error(error);
@@ -73,11 +73,10 @@ module.exports = (sequelize, DataTypes) => {
 
     displayableString() {
       let checkbox = this.completed ? "[x]" : "[ ]";
-      return `${this.id}. ${checkbox} ${this.title} ${
-        this.dueDate === new Date().toISOString().split("T")[0]
-          ? ""
-          : " " + this.dueDate
-      }`;
+      if (this.dueDate === new Date().toLocaleDateString("en-CA")) {
+        return `${this.id}. ${checkbox} ${this.title}`;
+      }
+      return `${this.id}. ${checkbox} ${this.title}  ${this.dueDate}`;
     }
   }
   Todo.init(
@@ -89,7 +88,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: "Todo",
-    }
+    },
   );
   return Todo;
 };
