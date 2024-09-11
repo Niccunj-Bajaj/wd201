@@ -8,12 +8,12 @@
     "test": "NODE_ENV=test jest --detectOpenHandles",
     "prepare": "cd .. && husky install todo-cli/.husky"
   },
-  "lint-staged": {
-    "*.js": [
-      "eslint",
-      "prettier --write ."
-    ]
-  },
+"lint-staged": {
+  "*.js": [
+    "eslint",
+    "prettier --write ."
+  ]
+},
   "author": "Niccunj Bajaj <niccunjbajaj2006@gmail.com>",
   "license": "ISC",
   "description": "",
