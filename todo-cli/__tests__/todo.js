@@ -25,23 +25,69 @@ describe("Todolist Test Suite", () => {
   });
 
   test("Should return dueToday", async () => {
+    const Toady = await db.Todo.dueToday();
     await db.Todo.addTask({
       title: "overdue todo",
       dueDate: getJSDate(0),
       completed: false,
     });
     const items = await db.Todo.dueToday();
-    expect(items.length).toBe(1);
+    expect(items.length).toBe(Toady.length + 1);
   });
 
   test("Should return due Later", async () => {
+    const Later = await db.Todo.dueLater();
     await db.Todo.addTask({
       title: "overdue todo",
       dueDate: getJSDate(2),
       completed: false,
     });
     const items = await db.Todo.dueLater();
-    expect(items.length).toBe(1);
+    expect(items.length).toBe(Later.length + 1);
+  });
+
+  test("Should mark as complete", async () => {
+    const items = await db.Todo.overdue();
+    const todo = items[0];
+    expect(todo.completed).toBe(false);
+    await db.Todo.markAsComplete(todo.id);
+    await todo.reload();
+
+    expect(todo.completed).toBe(true);
+  });
+
+  test("Should return completed past-due todo", async () => {
+    const item = await db.Todo.overdue();
+    const i = item[0];
+    expect(i.completed).toBe(true);
+    const display = i.displayableString();
+    expect(display).toBe(`${i.id}. [x] ${i.title}  ${i.dueDate}`);
+  });
+
+  test("Should return incomplete post-due todo", async () => {
+    const item = await db.Todo.dueLater();
+    const i = item[0];
+    expect(i.completed).toBe(false);
+    const display = i.displayableString();
+    expect(display).toBe(`${i.id}. [ ] ${i.title}  ${i.dueDate}`);
+  });
+
+  test("Should return incomplete present-due todo", async () => {
+    const item = await db.Todo.dueToday();
+    const i = item[0];
+    expect(i.completed).toBe(false);
+    const display = i.displayableString();
+    expect(display).toBe(`${i.id}. [ ] ${i.title}  ${i.dueDate}`);
+  });
+
+  test("Should return complete present-due todo", async () => {
+    const item = await db.Todo.dueToday();
+    const i = item[0];
+    expect(i.completed).toBe(false);
+    await db.Todo.markAsComplete(i.id);
+    await i.reload();
+    const display = i.displayableString();
+    expect(display).toBe(`${i.id}. [x] ${i.title}  ${i.dueDate}`);
   });
 });
 
