@@ -62,7 +62,7 @@ const updateTask = async (id) => {
         where: {
           id: id,
         },
-      },
+      }
     );
   } catch (error) {
     console.error(error);
@@ -94,6 +94,6 @@ const deleteTask = async (id) => {
   await retriveSingleTodo();
   await updateTask(2);
   await retriveTodo();
-  await deleteTask(2);
+  await deleteTask(3);
   await retriveTodo();
 })();
