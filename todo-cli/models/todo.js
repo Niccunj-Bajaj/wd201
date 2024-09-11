@@ -31,11 +31,7 @@ module.exports = (sequelize, DataTypes) => {
       return await Todo.findAll({
         where: {
           dueDate: {
-<<<<<<< HEAD
             [Op.lt]: new Date(),
-=======
-            [Op.it]: new Date(),
->>>>>>> origin/main
           },
         },
       });

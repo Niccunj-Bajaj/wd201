@@ -23,6 +23,26 @@ describe("Todolist Test Suite", () => {
     const items = await db.Todo.overdue();
     expect(items.length).toBe(1);
   });
+
+  test("Should return dueToday", async () => {
+    await db.Todo.addTask({
+      title: "overdue todo",
+      dueDate: getJSDate(0),
+      completed: false,
+    });
+    const items = await db.Todo.dueToday();
+    expect(items.length).toBe(1);
+  });
+
+  test("Should return due Later", async () => {
+    await db.Todo.addTask({
+      title: "overdue todo",
+      dueDate: getJSDate(2),
+      completed: false,
+    });
+    const items = await db.Todo.dueLater();
+    expect(items.length).toBe(1);
+  });
 });
 
 // const todoList = require("../todo");
