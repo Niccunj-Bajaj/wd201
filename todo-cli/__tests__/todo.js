@@ -61,7 +61,7 @@ describe("Todolist Test Suite", () => {
     const i = item[0];
     expect(i.completed).toBe(true);
     const display = i.displayableString();
-    expect(display).toBe(`${i.id}. [x] ${i.title}  ${i.dueDate}`);
+    expect(display).toBe(`${i.id}. [x] ${i.title} ${i.dueDate}`);
   });
 
   test("For an incomplete todo in the future, Todo.displayableString should return a string of the format `ID. [ ] TITLE DUE_DATE`", async () => {
@@ -69,7 +69,7 @@ describe("Todolist Test Suite", () => {
     const i = item[0];
     expect(i.completed).toBe(false);
     const display = i.displayableString();
-    expect(display).toBe(`${i.id}. [ ] ${i.title}  ${i.dueDate}`);
+    expect(display).toBe(`${i.id}. [ ] ${i.title} ${i.dueDate}`);
   });
 
   test("For an incomplete todo due today, Todo.displayableString should return a string of the format ID. [ ] TITLE (date should not be shown)", async () => {
