@@ -56,7 +56,7 @@ describe("Todolist Test Suite", () => {
     expect(todo.completed).toBe(true);
   });
 
-  test(" For a completed past-due item, Todo.displayableString should return a string of the format ID. [x] TITLE DUE_DATE", async () => {
+  test("For a completed past-due item, Todo.displayableString should return a string of the format `ID. [x] TITLE DUE_DATE`", async () => {
     const item = await db.Todo.overdue();
     const i = item[0];
     expect(i.completed).toBe(true);
@@ -64,7 +64,7 @@ describe("Todolist Test Suite", () => {
     expect(display).toBe(`${i.id}. [x] ${i.title}  ${i.dueDate}`);
   });
 
-  test(" For an incomplete todo in the future, Todo.displayableString should return a string of the format ID. [ ] TITLE DUE_DATE", async () => {
+  test("For an incomplete todo in the future, Todo.displayableString should return a string of the format `ID. [ ] TITLE DUE_DATE`", async () => {
     const item = await db.Todo.dueLater();
     const i = item[0];
     expect(i.completed).toBe(false);
